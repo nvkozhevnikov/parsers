@@ -1,13 +1,14 @@
 import aiohttp
 import asyncio
 from lxml import html
+from aiofile import AIOFile
 from datetime import datetime
-import time
+from reppy.robots import Robots
 
 start_time = datetime.now()
 
 
-url = 'https://ultramedstom.ru/'
+url = 'https://rustan.ru/'
 scaned_urls = set()
 
 async def worker(q):
@@ -27,8 +28,8 @@ async def worker(q):
 
                 print (title)
 
-                with open ('t-co.csv', 'a') as f:
-                	f.write(f'{u}\t{title}\n')
+                #async with AIOFile ('t-co.csv', 'a', encoding="utf8") as f:
+                	#await f.write(f'{u}\t{title}\n')
 
                 for link in links:
                     if not link.startswith(url):
@@ -62,7 +63,7 @@ async def main():
     #print(qu.qsize())
 
     tasks = []
-    for _ in range(100):
+    for _ in range(2):
         task = asyncio.Task(worker(qu))
         tasks.append(task)
 

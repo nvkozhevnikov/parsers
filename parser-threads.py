@@ -10,7 +10,7 @@ start_time = datetime.now()
 
 
 
-DOMAIN = 'ultramedstom.ru'
+DOMAIN = 'rustan.ru'
 scaned_urls = set()
 locker = Lock()
 
@@ -62,7 +62,7 @@ def main():
     resp = session.get(url)
 
     # for link in resp.html.absolute_links:
-    # 	print(robots.allowed(link, '*'), link)
+     	print(robots.allowed(link, '*'), link)
     # 	if robots.allowed(link, '*'):
     # 		qu.put(link)
     # 		scaned_urls.add(link)
@@ -74,8 +74,8 @@ def main():
         scaned_urls.add(link)
 
    
-    with ThreadPoolExecutor(max_workers=20) as ex:
-        for _ in range(20):
+    with ThreadPoolExecutor(max_workers=50) as ex:
+        for _ in range(50):
             ex.submit (worker, qu)
 main() 
 
